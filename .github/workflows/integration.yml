@@ -1,0 +1,52 @@
+name: Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_call:
+
+jobs:
+  lint_test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 7.21.0
+          run_install: false
+
+      - name: Get pnpm store directory path
+        id: pnpm-store-dir-path
+        shell: bash
+        run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm store cache
+        uses: actions/cache@v3
+        id: pnpm-store-cache
+        with:
+          path: ${{ steps.pnpm-store-dir-path.outputs.PNPM_STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
