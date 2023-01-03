@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "test": "echo \"Error: no test implemented.\" && exit 1",
+    "test": "vitest",
     "lint": "prettier -c . && eslint . --cache --max-warnings=0 && tsc --noEmit",
     "prepare": "husky install",
     "prepublishOnly": "pnpm build"
@@ -27,7 +27,9 @@
     "@hideoo/eslint-config": "0.14.1",
     "@hideoo/prettier-config": "0.1.1",
     "@hideoo/tsconfig": "0.1.0",
+    "@types/common-tags": "1.8.1",
     "@types/node": "18.11.18",
+    "common-tags": "1.8.2",
     "eslint": "8.31.0",
     "gray-matter": "4.0.3",
     "husky": "8.0.3",
@@ -35,6 +37,7 @@
     "prettier": "2.8.1",
     "tsup": "6.5.0",
     "typescript": "4.9.4",
+    "vitest": "0.26.3",
     "zod": "3.20.2"
   },
   "peerDependencies": {

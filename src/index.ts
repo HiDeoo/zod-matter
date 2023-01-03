@@ -1,7 +1,7 @@
 import matter from 'gray-matter'
 import { type z, type AnyZodObject } from 'zod'
 
-export function parse<TSchema extends AnyZodObject, TInput extends matter.Input>(
+export function parseMatter<TSchema extends AnyZodObject, TInput extends matter.Input>(
   input: TInput,
   schema: TSchema
 ): ZodMatterFile<TSchema, TInput> {
