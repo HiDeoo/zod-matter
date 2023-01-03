@@ -5,9 +5,21 @@
   "description": "",
   "author": "HiDeoo <github@hideoo.dev> (https://hideoo.dev)",
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "lint": "prettier -c . && eslint . --cache --max-warnings=0 && tsc --noEmit",
+    "dev": "tsup --watch",
+    "build": "tsup",
     "test": "echo \"Error: no test implemented.\" && exit 1",
+    "lint": "prettier -c . && eslint . --cache --max-warnings=0 && tsc --noEmit",
     "prepare": "husky install",
     "prepublishOnly": "pnpm build"
   },
@@ -15,11 +27,19 @@
     "@hideoo/eslint-config": "0.14.1",
     "@hideoo/prettier-config": "0.1.1",
     "@hideoo/tsconfig": "0.1.0",
+    "@types/node": "18.11.18",
     "eslint": "8.31.0",
+    "gray-matter": "4.0.3",
     "husky": "8.0.3",
     "lint-staged": "13.1.0",
     "prettier": "2.8.1",
-    "typescript": "4.9.4"
+    "tsup": "6.5.0",
+    "typescript": "4.9.4",
+    "zod": "3.20.2"
+  },
+  "peerDependencies": {
+    "gray-matter": ">=3.0.0",
+    "zod": ">=3.0.0"
   },
   "engines": {
     "node": ">=18"
