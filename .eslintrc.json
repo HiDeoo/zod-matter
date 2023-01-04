@@ -1,3 +1,11 @@
 {
-  "extends": ["@hideoo"]
+  "extends": ["@hideoo"],
+  "overrides": [
+    {
+      "files": ["types/*.d.ts"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ]
 }
