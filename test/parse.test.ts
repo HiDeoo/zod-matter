@@ -2,7 +2,7 @@ import { stripIndent } from 'common-tags'
 import { expect, test } from 'vitest'
 import { z, ZodError } from 'zod'
 
-import { parseMatter } from '../src'
+import { parse } from '../src'
 
 test('should parse a valid front matter', () => {
   const input = stripIndent`
@@ -13,7 +13,7 @@ test('should parse a valid front matter', () => {
     <h1>Hello world!</h1>
   `
 
-  const frontMatter = parseMatter(
+  const frontMatter = parse(
     input,
     z.object({
       title: z.string(),
@@ -36,7 +36,7 @@ test('should parse an empty front matter', () => {
     <h1>Hello world!</h1>
   `
 
-  const frontMatter = parseMatter(input, z.object({}))
+  const frontMatter = parse(input, z.object({}))
 
   expect(frontMatter).toBeDefined()
   expect(frontMatter.isEmpty).toBe(true)
@@ -46,7 +46,7 @@ test('should parse an empty front matter', () => {
 test('should parse an input with no front matter', () => {
   const input = `<h1>Hello world!</h1>`
 
-  const frontMatter = parseMatter(input, z.object({}))
+  const frontMatter = parse(input, z.object({}))
 
   expect(frontMatter).toBeDefined()
   expect(frontMatter.isEmpty).toBe(false)
@@ -61,7 +61,7 @@ test('should not parse an invalid front matter', () => {
   `
 
   expect(() =>
-    parseMatter(
+    parse(
       input,
       z.object({
         title: z.string(),
@@ -79,7 +79,7 @@ test('should return all properties from a gray-matter file', () => {
     <h1>Hello world!</h1>
   `
 
-  const frontMatter = parseMatter(
+  const frontMatter = parse(
     input,
     z.object({
       title: z.string(),
@@ -124,7 +124,7 @@ test('should support gray-matter options', () => {
     <h1>Hello world!</h1>
   `
 
-  const frontMatter = parseMatter(
+  const frontMatter = parse(
     input,
     z.object({
       title: z.string(),
@@ -152,7 +152,7 @@ test('should parse a valid front matter in a buffer', () => {
     <h1>Hello world!</h1>
   `)
 
-  const frontMatter = parseMatter(
+  const frontMatter = parse(
     input,
     z.object({
       title: z.string(),
@@ -174,7 +174,7 @@ test('should parse a valid front matter in an object with a content property', (
     `,
   }
 
-  const frontMatter = parseMatter(
+  const frontMatter = parse(
     input,
     z.object({
       title: z.string(),

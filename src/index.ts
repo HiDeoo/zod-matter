@@ -1,7 +1,7 @@
 import matter from 'gray-matter'
 import { type z, type AnyZodObject } from 'zod'
 
-export function parseMatter<
+export function parse<
   TSchema extends AnyZodObject,
   TInput extends matter.Input,
   TOptions extends matter.GrayMatterOption<TInput, TOptions>
@@ -21,6 +21,8 @@ export function parseMatter<
 
   return zodMatterFile
 }
+
+export const stringify = matter.stringify
 
 function addNonEnumerableProperty(object: object, key: string, value: unknown) {
   Object.defineProperty(object, key, {
