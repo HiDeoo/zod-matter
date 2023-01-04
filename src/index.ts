@@ -1,11 +1,12 @@
 import matter from 'gray-matter'
 import { type z, type AnyZodObject } from 'zod'
 
-export function parseMatter<TSchema extends AnyZodObject, TInput extends matter.Input>(
-  input: TInput,
-  schema: TSchema
-): ZodMatterFile<TSchema, TInput> {
-  const grayMatterFile = matter(input)
+export function parseMatter<
+  TSchema extends AnyZodObject,
+  TInput extends matter.Input,
+  TOptions extends matter.GrayMatterOption<TInput, TOptions>
+>(input: TInput, schema: TSchema, options?: TOptions): ZodMatterFile<TSchema, TInput> {
+  const grayMatterFile = matter(input, options)
   const { data, ...dataLessGrayMatterFile } = grayMatterFile
 
   const zodMatterFile = {
