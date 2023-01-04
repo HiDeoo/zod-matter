@@ -2,11 +2,27 @@ import matter from 'gray-matter'
 import { type z, type AnyZodObject } from 'zod'
 
 export function parse<
-  TSchema extends AnyZodObject,
   TInput extends matter.Input,
+  TSchema extends AnyZodObject,
   TOptions extends matter.GrayMatterOption<TInput, TOptions>
 >(input: TInput | { content: TInput }, schema: TSchema, options?: TOptions): ZodMatterFile<TSchema, TInput> {
-  const grayMatterFile = matter(input, options)
+  return parseFrontMatter(schema, matter(input, options))
+}
+
+export const stringify = matter.stringify
+
+export function read<TSchema extends AnyZodObject, TOptions extends matter.GrayMatterOption<string, TOptions>>(
+  path: string,
+  schema: TSchema,
+  options?: TOptions
+): ZodMatterFile<TSchema, string> {
+  return parseFrontMatter(schema, matter.read(path, options))
+}
+
+function parseFrontMatter<TInput extends matter.Input, TSchema extends AnyZodObject>(
+  schema: TSchema,
+  grayMatterFile: matter.GrayMatterFile<TInput>
+): ZodMatterFile<TSchema, TInput> {
   const { data, ...dataLessGrayMatterFile } = grayMatterFile
 
   const zodMatterFile = {
@@ -21,8 +37,6 @@ export function parse<
 
   return zodMatterFile
 }
-
-export const stringify = matter.stringify
 
 function addNonEnumerableProperty(object: object, key: string, value: unknown) {
   Object.defineProperty(object, key, {

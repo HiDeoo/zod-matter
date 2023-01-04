@@ -6,5 +6,6 @@ build
 coverage
 dist
 dist-ssr
+fixtures/fancy.md
 out
 pnpm-lock.yaml
