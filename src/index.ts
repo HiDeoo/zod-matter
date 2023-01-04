@@ -9,8 +9,6 @@ export function parse<
   return parseFrontMatter(schema, matter(input, options))
 }
 
-export const stringify = matter.stringify
-
 export function read<TSchema extends AnyZodObject, TOptions extends matter.GrayMatterOption<string, TOptions>>(
   path: string,
   schema: TSchema,
@@ -18,6 +16,10 @@ export function read<TSchema extends AnyZodObject, TOptions extends matter.GrayM
 ): ZodMatterFile<TSchema, string> {
   return parseFrontMatter(schema, matter.read(path, options))
 }
+
+export const stringify = matter.stringify
+
+export const test = matter.test
 
 function parseFrontMatter<TInput extends matter.Input, TSchema extends AnyZodObject>(
   schema: TSchema,
