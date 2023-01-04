@@ -6,12 +6,12 @@ import { parseMatter } from '../src'
 
 test('should parse a valid front matter', () => {
   const input = stripIndent`
-      ---
-      title: Hello world
-      date: 2023-01-03
-      ---
-      <h1>Hello world!</h1>
-    `
+    ---
+    title: Hello world
+    date: 2023-01-03
+    ---
+    <h1>Hello world!</h1>
+  `
 
   const frontMatter = parseMatter(
     input,
@@ -31,10 +31,10 @@ test('should parse a valid front matter', () => {
 
 test('should parse an empty front matter', () => {
   const input = stripIndent`
-      ---
-      ---
-      <h1>Hello world!</h1>
-    `
+    ---
+    ---
+    <h1>Hello world!</h1>
+  `
 
   const frontMatter = parseMatter(input, z.object({}))
 
@@ -54,11 +54,11 @@ test('should parse an input with no front matter', () => {
 
 test('should not parse an invalid front matter', () => {
   const input = stripIndent`
-      ---
-      author: HiDeoo
-      ---
-      <h1>Hello world!</h1>
-    `
+    ---
+    author: HiDeoo
+    ---
+    <h1>Hello world!</h1>
+  `
 
   expect(() =>
     parseMatter(
@@ -73,11 +73,11 @@ test('should not parse an invalid front matter', () => {
 
 test('should return all properties from a gray-matter file', () => {
   const input = stripIndent`
-      ---
-      title: Hello world
-      ---
-      <h1>Hello world!</h1>
-    `
+    ---
+    title: Hello world
+    ---
+    <h1>Hello world!</h1>
+  `
 
   const frontMatter = parseMatter(
     input,
@@ -114,15 +114,15 @@ test('should return all properties from a gray-matter file', () => {
 
 test('should support gray-matter options', () => {
   const input = stripIndent`
-      ~~~
-      {
-        "title": "Hello world"
-      }
-      ~~~
-      This is an excerpt.
-      <!-- content -->
-      <h1>Hello world!</h1>
-    `
+    ~~~
+    {
+      "title": "Hello world"
+    }
+    ~~~
+    This is an excerpt.
+    <!-- content -->
+    <h1>Hello world!</h1>
+  `
 
   const frontMatter = parseMatter(
     input,
@@ -142,4 +142,46 @@ test('should support gray-matter options', () => {
 
   expect(frontMatter.data.title).toBe('Hello world')
   expect(frontMatter.excerpt).toBe('This is an excerpt.\n')
+})
+
+test('should parse a valid front matter in a buffer', () => {
+  const input = Buffer.from(stripIndent`
+    ---
+    title: Hello world
+    ---
+    <h1>Hello world!</h1>
+  `)
+
+  const frontMatter = parseMatter(
+    input,
+    z.object({
+      title: z.string(),
+    })
+  )
+
+  expect(frontMatter).toBeDefined()
+
+  expect(frontMatter.data.title).toBe('Hello world')
+})
+
+test('should parse a valid front matter in an object with a content property', () => {
+  const input = {
+    content: stripIndent`
+      ---
+      title: Hello world
+      ---
+      <h1>Hello world!</h1>
+    `,
+  }
+
+  const frontMatter = parseMatter(
+    input,
+    z.object({
+      title: z.string(),
+    })
+  )
+
+  expect(frontMatter).toBeDefined()
+
+  expect(frontMatter.data.title).toBe('Hello world')
 })

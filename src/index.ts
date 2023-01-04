@@ -5,7 +5,7 @@ export function parseMatter<
   TSchema extends AnyZodObject,
   TInput extends matter.Input,
   TOptions extends matter.GrayMatterOption<TInput, TOptions>
->(input: TInput, schema: TSchema, options?: TOptions): ZodMatterFile<TSchema, TInput> {
+>(input: TInput | { content: TInput }, schema: TSchema, options?: TOptions): ZodMatterFile<TSchema, TInput> {
   const grayMatterFile = matter(input, options)
   const { data, ...dataLessGrayMatterFile } = grayMatterFile
 
