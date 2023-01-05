@@ -15,7 +15,7 @@
 
 ## Features
 
-zod-matter is a tiny wrapper for [gray-matter](https://github.com/jonschlinkert/gray-matter/) and [Zod](https://github.com/colinhacks/zod) to parse and validate front matter with static type inference.
+zod-matter is a tiny wrapper for [gray-matter](https://github.com/jonschlinkert/gray-matter/) and [Zod](https://github.com/colinhacks/zod) to parse and validate front matter with [static type inference](https://www.typescriptlang.org/play?#code/JYWwDg9gTgLgBAbzmAhlAzgUzgXzgMyghDgCIAvCAEwFoQUYZMpSAoUSWROc3AokhWptWAYwgA7dPGASwAV3gBeOAAMaG1ikUALaAC44ACWAARTBAisqDTIYBMABnsBmGo4CM7gKysNNVlYAYmNMABswiDgAd2gwqgBCVlVA8Sl4QkkYAFkGJig4FVQMTAAKVjg4WQUYABoKngA6CAAjACtMURhShAbK7Rg9KENyRukoWQBzUoBKesrKmyYRxqWyub64UVtJ6ABPFfGp2eawGGBJFDDZ+dwZ1nvWTIkcvOZVhhRGgaGnohfcox3ksvms-llAfkPjAvtsmLsoHtAs9XkCoNCvlAUBIqMRWEA).
 
 gray-matter is a great package to parse front matter but provides [no validation or type safety](https://github.com/jonschlinkert/gray-matter/issues/69#issuecomment-454978951). This package exposes an API adding a `schema` parameter to validate front matter data using Zod. This can be particularly useful to parse & validate front matter for user generated Markdown or MDX files for example.
 
