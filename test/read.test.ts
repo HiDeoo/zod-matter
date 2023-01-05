@@ -62,7 +62,7 @@ test('should return all properties from a gray-matter file', () => {
   expect(frontMatter).toBeDefined()
 
   expect(frontMatter.data.title).toBe('Hello world')
-  expect(frontMatter.content).toBe('\n<h1>Hello world!</h1>\n')
+  expect(frontMatter.content).toBe('\n# Hello world!\n')
   expect(frontMatter.excerpt).toBe('')
   expect(frontMatter.isEmpty).toBe(false)
   expect(frontMatter.empty).toBeUndefined()

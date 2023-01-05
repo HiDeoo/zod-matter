@@ -10,7 +10,7 @@ test('should parse a valid front matter', () => {
     title: Hello world
     date: 2023-01-03
     ---
-    <h1>Hello world!</h1>
+    # Hello world!
   `
 
   const frontMatter = parse(
@@ -33,7 +33,7 @@ test('should parse an empty front matter', () => {
   const input = stripIndent`
     ---
     ---
-    <h1>Hello world!</h1>
+    # Hello world!
   `
 
   const frontMatter = parse(input, z.object({}))
@@ -44,7 +44,7 @@ test('should parse an empty front matter', () => {
 })
 
 test('should parse an input with no front matter', () => {
-  const input = `<h1>Hello world!</h1>`
+  const input = `# Hello world!`
 
   const frontMatter = parse(input, z.object({}))
 
@@ -57,7 +57,7 @@ test('should not parse an invalid front matter', () => {
     ---
     author: HiDeoo
     ---
-    <h1>Hello world!</h1>
+    # Hello world!
   `
 
   expect(() =>
@@ -76,7 +76,7 @@ test('should return all properties from a gray-matter file', () => {
     ---
     title: Hello world
     ---
-    <h1>Hello world!</h1>
+    # Hello world!
   `
 
   const frontMatter = parse(
@@ -89,7 +89,7 @@ test('should return all properties from a gray-matter file', () => {
   expect(frontMatter).toBeDefined()
 
   expect(frontMatter.data.title).toBe('Hello world')
-  expect(frontMatter.content).toBe('<h1>Hello world!</h1>')
+  expect(frontMatter.content).toBe('# Hello world!')
   expect(frontMatter.excerpt).toBe('')
   expect(frontMatter.isEmpty).toBe(false)
   expect(frontMatter.empty).toBeUndefined()
@@ -121,7 +121,7 @@ test('should support gray-matter options', () => {
     ~~~
     This is an excerpt.
     <!-- content -->
-    <h1>Hello world!</h1>
+    # Hello world!
   `
 
   const frontMatter = parse(
@@ -149,7 +149,7 @@ test('should parse a valid front matter in a buffer', () => {
     ---
     title: Hello world
     ---
-    <h1>Hello world!</h1>
+    # Hello world!
   `)
 
   const frontMatter = parse(
@@ -170,7 +170,7 @@ test('should parse a valid front matter in an object with a content property', (
       ---
       title: Hello world
       ---
-      <h1>Hello world!</h1>
+      # Hello world!
     `,
   }
 
