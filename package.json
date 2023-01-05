@@ -2,7 +2,7 @@
   "name": "zod-matter",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "",
+  "description": "Typesafe front matter",
   "author": "HiDeoo <github@hideoo.dev> (https://hideoo.dev)",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -10,9 +10,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
@@ -53,7 +53,25 @@
     "access": "public"
   },
   "sideEffects": false,
-  "keywords": [],
+  "files": [
+    "dist",
+    "types"
+  ],
+  "keywords": [
+    "markdown",
+    "mdx",
+    "front-matter",
+    "frontmatter",
+    "matter",
+    "yaml",
+    "gray-matter",
+    "zod",
+    "typescript",
+    "typesafe",
+    "schema-validation",
+    "runtime-validation",
+    "type-inference"
+  ],
   "homepage": "https://github.com/HiDeoo/zod-matter",
   "repository": {
     "type": "git",
