@@ -1,6 +1,28 @@
 import matter from 'gray-matter'
 import { type z, type AnyZodObject } from 'zod'
 
+/**
+ * Extracts and parses front matter according to the given Zod schema.
+ *
+ * @example
+ * ```ts
+ * import { parse } from 'zod-matter'
+ * import { z } from 'zod'
+ *
+ * const frontMatter = parse(
+ *   input,
+ *   z.object({
+ *     author: z.string(),
+ *     date: z.date(),
+ *     category: z.string().optional(),
+ *   })
+ * )
+ * ```
+ *
+ * @param input - The string, buffer or object with a `content` property to parse.
+ * @param schema - The Zod schema to use to parse the front matter.
+ * @param options - The gray-matter options to use.
+ */
 export function parse<
   TInput extends matter.Input,
   TSchema extends AnyZodObject,
@@ -9,6 +31,28 @@ export function parse<
   return parseFrontMatter(schema, matter(input, options))
 }
 
+/**
+ * Extracts and parses front matter from a file according to the given Zod schema.
+ *
+ * @example
+ * ```ts
+ * import { read } from 'zod-matter'
+ * import { z } from 'zod'
+ *
+ * const frontMatter = read(
+ *   path,
+ *   z.object({
+ *     author: z.string(),
+ *     date: z.date(),
+ *     category: z.string().optional(),
+ *   })
+ * )
+ * ```
+ *
+ * @param path - The path to the file to read and parse.
+ * @param schema - The Zod schema to use to parse the front matter.
+ * @param options - The gray-matter options to use.
+ */
 export function read<TSchema extends AnyZodObject, TOptions extends matter.GrayMatterOption<string, TOptions>>(
   path: string,
   schema: TSchema,
