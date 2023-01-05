@@ -1,0 +1,11 @@
+.next
+.vercel
+.vscode-test
+.vscode-test-web
+build
+coverage
+dist
+dist-ssr
+fixtures/fancy.md
+out
+pnpm-lock.yaml
