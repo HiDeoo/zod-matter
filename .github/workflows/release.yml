@@ -1,5 +1,7 @@
 name: Release
 
+permissions: {}
+
 on:
   push:
     tags:
@@ -12,48 +14,37 @@ jobs:
 
   publish:
     name: Publish
+    if: ${{ github.repository_owner == 'hideoo' }}
     needs:
       - integration
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           fetch-depth: 0
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          registry-url: 'https://registry.npmjs.org'
+          persist-credentials: false
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
         with:
-          version: 7.21.0
-          run_install: false
+          version: 10.18.3
 
-      - name: Get pnpm store directory path
-        id: pnpm-store-dir-path
-        shell: bash
-        run: echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm store cache
-        uses: actions/cache@v3
-        id: pnpm-store-cache
+      - name: Install Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
-          path: ${{ steps.pnpm-store-dir-path.outputs.PNPM_STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+          node-version: 18
+          package-manager-cache: false
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Publish
         run: pnpm publish --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Generate changelog
         run: pnpx changelogithub
