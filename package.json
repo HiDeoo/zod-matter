@@ -1,6 +1,6 @@
 {
   "name": "zod-matter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "Typesafe front matter",
   "author": "HiDeoo <github@hideoo.dev> (https://hideoo.dev)",
